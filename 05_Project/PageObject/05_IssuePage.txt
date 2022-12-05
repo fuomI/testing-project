@@ -1,35 +1,99 @@
 
+### **Issue functionality Testsuit Overview**
+
 #******************** Settings ************************
 
 *** Settings ***
 Documentation	Issue Test scenario. CRUD Operation: Create, Read, Update, Delete
 
-# TODO: Write Precondition and Postcondition, Tags 
+Pre Condition	Open Browser
+				Navigated to https://gitlab.com/users/sign_in
+				Logged in to account jonij91
+				Landed to "Projects" page
+				From "Your projects" list, Clicked "jonij91 / testing-project05"
+				From lefthand menu "Issues" was clicked
+				Landed to "Issues" page showing project issues
 
-Pre Condition	Tips: Project must be created by the user before 
-Post Condition	
-Tags
+Post Condition	Close All Browsers
+
+Tags	IssuePage
 
 #******************* Common Variables ********************
 
 
 *** Variables ***
 
-# NOTE: Please Remove your login credential before uploading Assignments
+** New Issue variables **
+Title = Testing-issue-01
+Type = Issue
+Description = Test CRUD operations regarding issues in a project
+ConfidentalIssue = [not-checked]
+Assignee = Joni Jansson
+Milestone = [empty]
+Labes = [empty]
+DueDate = 2022-12-05
 
-# TODO: Write Issue creation field variables, Updated name of the issue
+** Updated Issue variables **
+Title = Testing-issue-02
 
+** New issue with original name **
+Title = Testing-issue-01
+Type = Issue
+Description = Test creating issue with the same name as the original issue
+ConfidentalIssue = [not-checked]
+Assignee = Joni Jansson
+Milestone = [empty]
+Labes = [empty]
+DueDate = 2022-12-05
 
 
 #******************** Test Cases *************************
 
 *** Test Case ***
 
-# TODO: Write Positive Test Cases and Test Process steps
-
 # Positive Test
 
-	Create issue,
- 	Update name of issue, 
-	Create second issue with privious updated name
+	Create issue
+		Click "New issue"
+		Input Title Testing-issue-01
+		Input Type Issue
+		Input Description Test CRUD operations regarding issues in a project
+		Input ConfidentalIssue [not-checked]
+		Input Assignee Joni Jansson
+		Input Milestone [empty]
+		Input Labes [empty]
+		Input DueDate 2022-12-05
+		Click "Create issue"
+		Should have landed to page "Testing-issue-01"
+
+ 	Update name of issue
+		Click "Open" tab
+		Click "Testing-issue-01"
+		Click Pencil icon "alt = Edit title and description"
+		Erase Title "Testing-issue-01"
+		Input Title Testing-issue-02
+		Click "Save changes"
+		Should have landed to page "Testing-issue-02"
+
+	Create second issue with the name that was previously updated
+		Click "New issue"
+		Input Title Testing-issue-01
+		Input Type Issue
+		Input Description Test creating issue with the same name as the original issue
+		Input ConfidentalIssue [not-checked]
+		Input Assignee Joni Jansson
+		Input Milestone [empty]
+		Input Labes [empty]
+		Input DueDate 2022-12-05
+		Click "Create issue"
+		Should have landed to page "Testing-issue-01"
+
     Delete first issue
+		Click "Open" tab
+		Click "Testing-issue-02"
+		Click icon with three vertical dots to open dropdown menu
+		Click "Delete issue"
+		Message "Issue will be removed! Are you sure?" should be shown
+		Click "Delete issue"
+		Should have landed to "Issues" page
+		Message "The issue was successfully deleted" should be shown
