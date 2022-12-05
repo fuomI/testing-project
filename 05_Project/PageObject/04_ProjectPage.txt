@@ -1,26 +1,47 @@
 
+### **Project page functionality Testsuit Overview**
+
 #******************** Settings ************************
 
 *** Settings ***
 
-# TODO: Write Dcocumentation e.g. Project Test scenario. CRUD Operation: Create, Read, Update, Delete
+Documentation	Project Test scenario is to test CRUD operations regarding the projects
+				at GitLab.
 
-Documentation	
+Pre Condition	Open Browser
+				Navigated to https://gitlab.com/users/sign_in
+				Logged in to account jonij91
+				Landed to "Projects" page
 
-# TODO: Write Precondition, Postcondition, Tags
+Post Condition	Close All Browsers
 
-Pre Condition	 
-Post Condition	
-Tags
+Tags	ProjectPage
 
 #******************* Common Variables ********************
 
 *** Variables ***
 
-# NOTE: Please Remove your login credential before uploading Assignments
-
 # TODO: Write Project creation field variables
 
+** Blank Project creation field variables **
+ProjectName = testing-project05
+ProjectURL = https://gitlab.com/jonij911
+ProjectSlug = testing-project05
+ProjectDeploymentTarget = [empty]
+VisibilityLevel = Private
+InitializeWithReadMe = [checked]
+EnableStaticApplicationSecurityTesting = [not-checked]
+
+** Template Project creation field variables **
+Template = Spring
+ProjectName = testing-project
+ProjectURL = https://gitlab.com/jonij911
+ProjectSlug = testing-project
+Description = [empty]
+VisibilityLevel = Private
+
+** Variables used to update template Project **
+ProjectName = testing-project91
 
 
 #******************** Test Cases *************************
@@ -31,16 +52,73 @@ Tags
 
 # Positive Test
 
-	Create blank project
-	Navigate
-	Insert  project name  Project_Nam
- 	Create template project 
+	Create new blank project successfully.
+		Click button "New Project"
+		Click "Create blank project"
+		Input ProjectName testing-project05
+		Input ProjectURL https://gitlab.com/jonij911
+		Input ProjectSlug testing-project05
+		Input ProjectDeploymentTarget [empty]
+		Input VisibilityLevel Private
+		Input InitializeWithReadMe [checked]
+		Input EnableStaticApplicationSecurityTesting [not-checked]
+		Click "Create Project"
+		Success message "Project 'testing-project05' was successfully created." should be shown
+
+
+	Create new template project successfully.
+		Click button "New Project"
+		Click "Create from template project"
+		Click "Use template" next to Spring
+		Input ProjectName testing-project
+		Input ProjectURL https://gitlab.com/jonij911
+		Input ProjectSlug testing-project
+		Input Description [empty]
+		Input VisibilityLevel Private
+		Click "Create Project"
+		Success message "The project was successfully imported." should be shown
+
+
 	Update name of template project
+		Click "jonij91 / testing-project" from "Your projects" list
+		Hover over "Settings" at lefthand menu
+		Click "General" from dropdown hover menu
+		Click "Expand" next to "Advanced"
+		Navigate to "Naming, topics, avatar"
+		Input ProjectName testing-project91
+		Click "Save changes"
+		Message "Project 'testing-project91' was successfully updated." should be shown
+
 	Delete template project
-	Valide that message is showing Project 'First project ' was successfully created.
+		Click "jonij91 / testing-project91" from "Your projects" list
+		Hover over "Settings" at lefthand menu
+		Click "General" from dropdown hover menu
+		Click "Expand" next to "Advanced"
+		Navigate to "Delete this project" at the bottom
+		Click "Delete project"
+		Messages "Are you absolutely sure?" and "Enter the following to confirm: jonij911/testing-project91" should be shown
+		Input jonij911/testing-project91 to confirm
+		Click "Yes, delete project"
+		Message "Project 'jonij91 / testing-project91-deleted-41599055' will be deleted on [7-DAYS-FROM-TODAY]" should be shown
 
 # Negative Test
 
 	Create a blank project with the previous same name
+		Click button "New Project"
+		Click "Create blank project"
+		Input ProjectName testing-project05
+		Input ProjectURL https://gitlab.com/jonij911
+		Input ProjectSlug testing-project
+		Input ProjectDeploymentTarget [empty]
+		Input VisibilityLevel Private
+		Input InitializeWithReadMe [checked]
+		Input EnableStaticApplicationSecurityTesting [not-checked]
+		Click "Create Project"
+		Message:
+			"The form contains the following errors:
+				- Project namespace name has already been taken
+				- Name has already been taken
+				- Path has already been taken"
+		should be shown
 
 
