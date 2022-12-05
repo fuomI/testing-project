@@ -9,5 +9,5 @@
 - [x] Perform all TODO: tasks describe in each above pages
 - [x] Create bug report for one test case which are already there in project's BugReport folder
   - [x] 02_ProjectPageReport
-- [ ] Write Learning Reflection page and upload in project's LearningReflection folder 
-   - [ ] 01_LearningReflection.md
+- [x] Write Learning Reflection page and upload in project's LearningReflection folder 
+   - [x] 01_LearningReflection.md
